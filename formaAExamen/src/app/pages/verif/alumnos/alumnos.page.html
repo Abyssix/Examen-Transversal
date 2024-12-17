@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Detalles de Alumnos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Información de la asistencia -->
+  <ion-card *ngIf="asistencia">
+    <ion-card-header>
+      <ion-card-title>{{ asistencia.asignatura }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Fecha: {{ asistencia.fecha }}</p>
+      <p>Hora: {{ asistencia.hora }}</p>
+      <p>Creado por: {{ asistencia.creadorNombre }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Lista de alumnos -->
+  <ion-list *ngIf="alumnos.length > 0">
+    <ion-item *ngFor="let alumno of alumnos">
+      <ion-label>
+        <h2>{{ alumno.name }}</h2>
+        <p>Email: {{ alumno.email }}</p>
+        <p>Rol: {{ alumno.rol }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-text *ngIf="alumnos.length === 0">
+    No hay alumnos registrados en esta asistencia.
+  </ion-text>
+</ion-content>

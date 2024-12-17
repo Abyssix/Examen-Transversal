@@ -1,0 +1,120 @@
+<!-- Menu desplegable desde la derecha -->
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title style="color: white;">Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="ion-padding">
+    <ion-list>
+      <!-- Ítem de asistencia -->
+      <ion-item (click)="verAsistencia()" lines="none">
+        <ion-icon name="person" slot="start" style="color: #3880ff;"></ion-icon>
+        <ion-label>Ver Asistencias</ion-label>
+      </ion-item>
+
+      <!-- Ítem QR para admin -->
+      <div *ngIf="user().rol === 'admin'">
+        <ion-item (click)="irAPaginaQR()" lines="none">
+          <ion-icon name="qr-code" slot="start" style="color: #3880ff;"></ion-icon>
+          <ion-label>Ver Código QR</ion-label>
+        </ion-item>
+      </div>
+
+      <!-- Tomar Asistencia -->
+      <ion-item (click)="irATomarQR()" lines="none">
+        <ion-icon name="person" slot="start" style="color: #3880ff;"></ion-icon>
+        <ion-label>Tomar Asistencia</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<!-- Contenido principal de la página -->
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Principal</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="ion-padding">
+    <!-- Contenedor principal -->
+    <div style="display: flex; align-items: center; margin-top: 25px;">
+      <!-- Imagen del perfil -->
+      <img src="../../../assets/img/profesor.png" class="imgn" alt="Imagen" 
+      style="width: 80px; height: 80px; border-radius: 8px; margin-right: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">
+ 
+
+      <!-- Mensaje de bienvenida -->
+      <div *ngIf="user().rol === 'admin'">
+        <div>
+          <h2 style="margin: 0.2; font-size: 28px; font-weight: bold;">¡Buenas Profes&#64;r!</h2>
+          <p style="margin: 0; color: grey; font-size: 18px;">{{ user().name }}</p>
+        </div>
+      </div>
+
+      <div *ngIf="user().rol === 'usuario'">
+        <div>
+          <h2 style="margin: 0.2; font-size: 28px; font-weight: bold;">¡Buenas Estudiante!</h2>
+          <p style="margin: 0; color: grey; font-size: 18px;">{{ user().name }}</p>
+        </div>
+      </div>
+
+    </div>
+
+ <!-- Tarjetas con mayor separación -->
+ <div class="card-container">
+
+  <div *ngIf="user().rol === 'usuario'">
+    <ion-card class="spaced-card">
+      <ion-card-header>
+        <ion-card-title style="display: flex; align-items: center;">
+          <ion-icon name="people" style="margin-right: 10px;"></ion-icon>
+          Tomar Asistencia
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Toma la asistencia de tu clase, para que no quedes ausente
+      </ion-card-content>
+      <ion-button expand="block" (click)="irATomarQR()" >Tomar asistencia</ion-button>
+    </ion-card>
+  </div>
+  
+  <!-- Tarjeta: Alumnos Registrados -->
+  <div *ngIf="user().rol === 'admin'">
+    <ion-card class="spaced-card">
+      <ion-card-header>
+        <ion-card-title style="display: flex; align-items: center;">
+          <ion-icon name="people" style="margin-right: 10px;"></ion-icon>
+          Alumnos Registrados
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Consulta el listado completo de estudiantes registrados.
+      </ion-card-content>
+      <ion-button expand="block" (click)="verAsistencia()">Ver Alumnos</ion-button>
+    </ion-card>
+  </div>
+
+  <!-- Tarjeta: Registrar Asistencia -->
+  <div *ngIf="user().rol === 'admin'">
+    <ion-card class="spaced-card">
+      <ion-card-header>
+        <ion-card-title style="display: flex; align-items: center;">
+          <ion-icon name="book" style="margin-right: 10px;"></ion-icon>
+          Registrar Asistencia
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Accede y registra la asistencia de tus clases.
+      </ion-card-content>
+      <ion-button expand="block" (click)="irAPaginaQR()" id="present-alert">Registrar</ion-button>
+    </ion-card>
+  </div>
+</div>
+</ion-content>

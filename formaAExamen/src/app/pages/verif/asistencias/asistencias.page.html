@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/verif/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Asistencias</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let asistencia of asistencias">
+      <ion-card-header>
+        <ion-card-title>{{ asistencia.asignatura }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Profesor:</strong> {{ asistencia.creadorNombre }}</p>
+        <p><strong>Hora:</strong> {{ asistencia.hora }}</p>
+        <p><strong>Fecha:</strong> {{ asistencia.fecha }}</p>
+        <div *ngIf="user().rol === 'admin'">
+          <ion-button expand="full" color="primary" (click)="verAlumnos(asistencia)">
+            Ver Alumnos
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>

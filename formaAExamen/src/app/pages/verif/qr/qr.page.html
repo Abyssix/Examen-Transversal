@@ -1,0 +1,105 @@
+<app-header backButton="/verif/home" title="Generar QR"></app-header>
+
+<ion-content class="ion-padding">
+  <h2>Registro de Asistencia</h2>
+
+  <div class="d-flex-center">
+    <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
+
+      <!-- Campo Asignatura -->
+      <!-- Campo Asignatura con el botón de selección -->
+      <ion-item>
+        <ion-label>Asignatura</ion-label>
+        <ion-select 
+          [formControl]="form.controls.asignatura" 
+          placeholder="Selecciona una asignatura" 
+          interface="action-sheet"
+        >
+          <ion-select-option value="Arquitectura">Arquitectura</ion-select-option>
+          <ion-select-option value="Calidad De Software">Calidad De Software</ion-select-option>
+          <ion-select-option value="Diseño de Prototipos">Diseño de Prototipos</ion-select-option>
+          <ion-select-option value="Estadistica Descriptiva">Estadistica Descriptiva</ion-select-option>
+          <ion-select-option value="Etica">Etica Para el Trabajo</ion-select-option>
+          <ion-select-option value="Programación de Aplicaciones Moviles">Programación de Aplicaciones Moviles</ion-select-option>
+          <ion-select-option value="Ingles">Ingles</ion-select-option>
+          <!-- Agrega más asignaturas si es necesario -->
+        </ion-select>
+      </ion-item>
+
+      <div class="validators" *ngIf="form.controls.asignatura.errors && form.controls.asignatura.touched">
+        <div *ngIf="form.controls.asignatura.errors?.['required']">La asignatura es requerida</div>
+      </div>
+
+      <!-- Campo Hora -->
+      <app-custom-input 
+        autocomplete="off" 
+        icon="time-outline"
+        [control]="form.controls.hora"
+        type="time"
+        label="Hora">
+      </app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.hora.errors && form.controls.hora.touched">
+        <div *ngIf="form.controls.hora.errors?.['required']">La hora es requerida</div>
+      </div>
+
+      <!-- Campo Fecha -->
+      <app-custom-input 
+        autocomplete="off" 
+        icon="calendar-outline"
+        [control]="form.controls.fecha"
+        type="date"
+        label="Fecha">
+      </app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.fecha.errors && form.controls.fecha.touched">
+        <div *ngIf="form.controls.fecha.errors?.['required']">La fecha es requerida</div>
+      </div>
+
+      <!-- Campo Alumnos (Aún no implementado, solo para futuro) -->
+      <!-- Aquí iría el campo para agregar alumnos, lo puedes implementar después -->
+
+      <!--<ion-button expand="block" id="open-loading" mode="ios" class="submit" type="submit" [disabled]="form.invalid">
+        Generar Codigo QR
+      </ion-button>-->
+
+      <!--<ion-button expand="block" id="open-loading" mode="ios" class="submit" type="submit" [disabled]="form.invalid" (click)="generarQRCode()">
+        Generar Código QR
+      </ion-button>-->
+      
+      <ion-button
+  expand="block"
+  id="open-loading"
+  mode="ios"
+  class="submit"
+  type="submit"
+  [disabled]="form.invalid"
+  (click)="generarQRCode()"
+>
+  Generar Código QR
+</ion-button>
+
+<!-- Mostrar el código QR generado solo si qrCodeData tiene contenido -->
+<ion-card class="ion-text-center" *ngIf="qrCodeData">
+  <ion-card-content>
+    <img [src]="qrCodeData" alt="QR Code" class="qr-code-img" />
+  </ion-card-content>
+</ion-card>
+
+
+  <!-- Botón para borrar el QR -->
+  <ion-button expand="block" (click)="borrarQRCode()" *ngIf="qrCodeData">
+    Terminar Asistencia Código QR
+  </ion-button>
+
+    </form>
+  </div>
+
+  <!-- Mostrar el código QR generado (comentado hasta que se implemente la lógica del QR) -->
+  
+ <!-- <ion-card class="ion-text-center">
+    <ion-card-content>
+      <img *ngIf="qrCodeData" [src]="qrCodeData" alt="QR Code" class="qr-code-img" />
+    </ion-card-content>
+  </ion-card>-->
+  

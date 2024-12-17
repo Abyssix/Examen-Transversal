@@ -1,0 +1,31 @@
+
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/verif/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="light">Toma de Asistencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+<ion-content class="ion-padding">
+  <h2>Escanear Código QR</h2>
+
+  <!-- Botón para iniciar el escaneo -->
+  <ion-button expand="block" (click)="toggleScanner()">Iniciar Escáner</ion-button>
+
+
+  <!-- Componente de escaneo QR -->
+  <zxing-scanner
+    *ngIf="scanActive"
+    (scanSuccess)="onCodeResult($event)">
+  </zxing-scanner>
+
+  <!-- Mostrar el resultado del escaneo -->
+  <div *ngIf="scannedCode">
+    <h3>Resultado:</h3>
+    <p>{{ scannedCode }}</p>
+  </div>
+</ion-content>
